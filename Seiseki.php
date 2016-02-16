@@ -1,9 +1,3 @@
-<?php
-
-echo "【成績管理業務】"
-	
-?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,16 +5,16 @@ echo "【成績管理業務】"
 <title>Check seiseki</title>
 </head>
 <body>
+<?php echo "<h1>【成績管理業務】</h1>"?>
 <form action="" method="get">
 <input name="seiseki" type="radio" value="1">一覧表示<br>
 <input name="seiseki" type="radio" value="2">成績データ登録<br>
 <input name="seiseki" type="radio" value="3">成績データ修正<br>
 <input name="seiseki" type="radio" value="4">成績データ削除<br>
-<input name="seiseki" type="radio" value="5">成績データソート<br>
-<input type="submit" value="選択"><br>
+<input name="seiseki" type="radio" value="5">成績データソート<br><br>
+<input type="submit" value="選択"><br><br>
 </form>
-</body>
-</html>
+
 <?php
 	if(!empty($_GET['seiseki'])){
    	  $choice = $_GET['seiseki'];
@@ -403,3 +397,5 @@ echo "【成績管理業務】"
 		}
 	}
 ?>
+</body>
+</html>
