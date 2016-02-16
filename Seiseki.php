@@ -139,25 +139,37 @@ echo "【成績管理業務】"
      		if($k==0){
      			$datas[] = "合計";
      			$datas[] = "平均";
+     			echo "<table border =".'"1"'." align=".'"left"'.">";
+     			echo "<thead>\r\n";
+     			echo "<tr>\r\n";
+     			echo "<th>$datas[0]</th><th>$datas[1]</th><th>$datas[2]</th><th>$datas[3]</th><th>$datas[4]</th><th>$datas[5]</th><th>$datas[6]</th><th>$datas[7]</th><th>$datas[8]</th>\r\n";
+     			echo "</tr>\r\n";	
+     			echo "</thead>\r\n";
+     			echo "<tbody>\r\n";
      		}else{
      			$datas[7] = $datas[2]+$datas[3]+$datas[4]+$datas[5]+$datas[6];
      			$datas[8] = $datas[7]/5;
+     			echo "<tr>\r\n";
+     			echo "<td>$datas[0]</td><td>$datas[1]</td><td>$datas[2]</td><td>$datas[3]</td><td>$datas[4]</td><td>$datas[5]</td><td>$datas[6]</td><td>$datas[7]</td><td>$datas[8]\r\n</td>\r\n";
+     			echo "</tr>\r\n";
      		}
-     		for($i=0;$i<count($datas);$i++){
-     			if(strlen($datas[$i]) == mb_strlen($datas[$i])){ //半角文字の時
-     				for($j=strlen($datas[$i]);$j<10;$j++){
-     					$datas[$i] = $datas[$i]."&nbsp";
-     				}
-     				echo "$datas[$i]";
-     			}else{								   //マルチバイトの時
-     				for($j=strlen($datas[$i]);$j<11;$j++){
-     					$datas[$i] = $datas[$i]."&nbsp";
-     				}
-     				echo "$datas[$i]";
-     			}
-     		}
-     		echo "<br>";
+     		//for($i=0;$i<count($datas);$i++){
+     			//if(strlen($datas[$i]) == mb_strlen($datas[$i])){ //半角文字の時
+     			//	for($j=strlen($datas[$i]);$j<10;$j++){
+     			//		$datas[$i] = $datas[$i]."&nbsp";
+     			//	}
+     			//	echo "$datas[$i]";
+     			//}else{								   //マルチバイトの時
+     			//	for($j=strlen($datas[$i]);$j<11;$j++){
+     			//		$datas[$i] = $datas[$i]."&nbsp";
+     			//	}
+     			//	echo "$datas[$i]";
+     			//}
      	}
+     	     		//}
+     		echo "</tbody>\r\n";
+     		echo "</table>\r\n";
+     		echo "<br><br><br><br><br><br><br><br>";
      }
      
      function removesets(){
