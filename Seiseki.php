@@ -153,20 +153,7 @@ echo "【成績管理業務】"
      			echo "<td>$datas[0]</td><td>$datas[1]</td><td>$datas[2]</td><td>$datas[3]</td><td>$datas[4]</td><td>$datas[5]</td><td>$datas[6]</td><td>$datas[7]</td><td>$datas[8]\r\n</td>\r\n";
      			echo "</tr>\r\n";
      		}
-     		//for($i=0;$i<count($datas);$i++){
-     			//if(strlen($datas[$i]) == mb_strlen($datas[$i])){ //半角文字の時
-     			//	for($j=strlen($datas[$i]);$j<10;$j++){
-     			//		$datas[$i] = $datas[$i]."&nbsp";
-     			//	}
-     			//	echo "$datas[$i]";
-     			//}else{								   //マルチバイトの時
-     			//	for($j=strlen($datas[$i]);$j<11;$j++){
-     			//		$datas[$i] = $datas[$i]."&nbsp";
-     			//	}
-     			//	echo "$datas[$i]";
-     			//}
      	}
-     	     		//}
      		echo "</tbody>\r\n";
      		echo "</table>\r\n";
      		echo "<br><br><br><br><br><br><br><br>";
@@ -175,13 +162,13 @@ echo "【成績管理業務】"
      function removesets(){
 			echo '<form action="" method="POST">';
      		echo '<input type = "text" name = "removeno" placeholder="削除する学番"><br>';
-    		echo '<input type="submit" value="追加"><br>';
+    		echo '<input type="submit" value="削除"><br>';
     		echo '</form>';
      }
      function editsets(){
 			echo '<form action="" method="POST">';
      		echo '<input type = "text" name = "editno" placeholder="編集する学番"><br>';
-     		echo '<input type="submit" value="追加"><br>';
+     		echo '<input type="submit" value="編集"><br>';
     		echo '</form>';
      }
      function addsets(){
@@ -231,7 +218,7 @@ echo "【成績管理業務】"
 			echo '<form action="" method="get">';
    			echo '<input name="remove" type="radio" value="1">YES';
 			echo '<input name="remove" type="radio" value="2">NO<br>';
-    		echo '<input type="submit" value="削除"><br>';
+    		echo '<input type="submit" value="選択"><br>';
     		echo '</form>';
 	}
 	
@@ -403,7 +390,7 @@ echo "【成績管理業務】"
      				$datas = split(',',$lines[$i]);//splitした配列
 					if($datas[0]==$_COOKIE['editno']){
 						unset($lines[$i]);
-						$lines[] = "$gakuban,$shimei,$kokugo,$sansu,$rika,$shakai,$eigo";
+						$lines[] = "$gakuban,$shimei,$kokugo,$sansu,$rika,$shakai,$eigo\n";
 					}
      			}
      			$file = "seiseki.csv";
