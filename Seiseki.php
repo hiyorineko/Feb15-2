@@ -72,16 +72,77 @@ echo "【成績管理業務】"
 		}else{
 			echo "中止しました。<br>";
 		}
+					
+	}else if(!empty($_GET['sort'])){
+		$choice = $_GET['sort'];
+		$howsort = $_GET['howsort'];
+		sortdatas($choice,$howsort);
 	}else{
    	  echo "処理区分を選択してください。<br>";
 	}
 	
-	
-	
+	 function sortdatas($choice,$howsort){
+	 	$lines = file('seiseki.csv');
+	 	$choices;
+	 	$newlines;
+     	for($i=1;$i<count($lines);$i++){
+     	    $datas = split(',',$lines[$i]);//splitした配列
+			if($choice == 7){
+				$choices[] = $datas[2]+$datas[3]+$datas[4]+$datas[5]+$datas[6];
+			}else if($choice == 8){
+				$sum = $datas[2]+$datas[3]+$datas[4]+$datas[5]+$datas[6];
+				$choices[] = $sum/5;
+			}else if($choice ==1){
+				$choices[] = intval($datas[0]);
+			}else{
+				$choices[] = intval($datas[$choice]);
+			}
+     	}
+     	if($howsort==1){
+     		for($i=0;$i<count($choices);$i++){
+     			for($j=0;$j<count($choices)-1;$j++){
+     				if($choices[$j]>$choices[$j+1]){
+     					$ctemp = $choices[$j];
+     					$choices[$j] = $choices[$j+1];
+     					$choices[$j+1] = $ctemp;
+     					$temp = $lines[$j+1];
+     					$lines[$j+1] = $lines[$j+2];
+     					$lines[$j+2] = $temp; 
+     				}
+     			}
+     		}
+     	}else{
+     		for($i=0;$i<count($choices);$i++){
+     			for($j=0;$j<count($choices)-1;$j++){
+     				if($choices[$j]<$choices[$j+1]){
+     				    $ctemp = $choices[$j];
+     					$choices[$j] = $choices[$j+1];
+     					$choices[$j+1] = $ctemp;
+     					$temp = $lines[$j+1];
+     					$lines[$j+1] = $lines[$j+2];
+     					$lines[$j+2] = $temp; 
+     				}
+     			}
+     		}
+     	}
+     	
+     	$file = "seiseki.csv";
+     	file_put_contents($file, $lines);
+		echo "ソートしました。<br>";
+		view();
+	 }
+	 
      function view(){
      	$lines = file('seiseki.csv');
-     	foreach($lines as $line){
-     		$datas = split(',',$line);//splitした配列
+     	for($k=0;$k<count($lines);$k++){
+     	    $datas = split(',',$lines[$k]);//splitした配列
+     		if($k==0){
+     			$datas[] = "合計";
+     			$datas[] = "平均";
+     		}else{
+     			$datas[7] = $datas[2]+$datas[3]+$datas[4]+$datas[5]+$datas[6];
+     			$datas[8] = $datas[7]/5;
+     		}
      		for($i=0;$i<count($datas);$i++){
      			if(strlen($datas[$i]) == mb_strlen($datas[$i])){ //半角文字の時
      				for($j=strlen($datas[$i]);$j<10;$j++){
@@ -89,7 +150,7 @@ echo "【成績管理業務】"
      				}
      				echo "$datas[$i]";
      			}else{								   //マルチバイトの時
-     				for($j=strlen($datas[$i]);$j<10;$j++){
+     				for($j=strlen($datas[$i]);$j<11;$j++){
      					$datas[$i] = $datas[$i]."&nbsp";
      				}
      				echo "$datas[$i]";
@@ -126,14 +187,17 @@ echo "【成績管理業務】"
      
      function sortsets(){
 		echo '<form action="" method="get">';
-		echo '<input name="sort" type="radio" value="1">学番<br>';
+		echo '<input name="sort" type="radio" value="1" checked>学番<br>';
 		echo '<input name="sort" type="radio" value="2">国語<br>';
 		echo '<input name="sort" type="radio" value="3">算数<br>';
 		echo '<input name="sort" type="radio" value="4">理科<br>';
 		echo '<input name="sort" type="radio" value="5">社会<br>';
 		echo '<input name="sort" type="radio" value="6">英語<br>';
         echo '<input name="sort" type="radio" value="7">合計<br>';
-        echo '<input type="submit" value="ソート"><br>';
+        echo '<input name="sort" type="radio" value="8">平均<br>';
+        echo '<input type="submit" value="ソート">';
+        echo '<input name="howsort" type="radio" value="1" checked>昇順';
+        echo '<input name="howsort" type="radio" value="2">降順<br>';
         echo '</form>';
      }
 	
